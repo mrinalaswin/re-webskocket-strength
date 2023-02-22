@@ -1,6 +1,6 @@
 # TODO - Rescript Websocket Strenght
 ## Milestone 1 (Research)
-- [ ] Add mindmap
-- [ ] Add feature spec
-- [ ] Add test cases
+- [ X ] Add mindmap
+- [ X ] Add feature spec
+- [ X ] Add test cases
 
