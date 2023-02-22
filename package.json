@@ -1,0 +1,14 @@
+{
+  "name": "re-websocket-strength",
+  "version": "1.0.0",
+  "description": "An example application to find the strength of the websocket",
+  "main": "index.js",
+  "author": "Mrinal Aswin <mrinalaswin08@gmail.com>",
+  "license": "MIT",
+	"scripts": {
+		"generate-mindmap": "markmap ./docs/MINDMAP.md"
+	},
+  "devDependencies": {
+    "markmap-cli": "^0.14.4"
+  }
+}
