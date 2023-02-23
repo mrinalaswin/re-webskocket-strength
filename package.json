@@ -6,6 +6,10 @@
   "author": "Mrinal Aswin <mrinalaswin08@gmail.com>",
   "license": "MIT",
   "scripts": {
-  },
-  "devDependencies": {}
+		"res:build": "rescript",
+		"res:dev": "rescript build -w"
+	},
+  "devDependencies": {
+    "rescript": "^10.1.2"
+  }
 }
