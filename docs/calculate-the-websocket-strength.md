@@ -59,16 +59,20 @@ Once calculated a reference metric for the strength is assumed, which considers:
 
 ```mermaid
 stateDiagram
-	[*] --> SET_SERVER_TS : "add_server_ts()"
-	SET_SERVER_TS --> SET_CLIENT_TS : "generate_client_ts()"
-	SET_CLIENT_TS --> SET_SERVER_ACK_TS : "add_server_ack_ts()"
-	SET_SERVER_ACK_TS --> SET_CLIENT_ACK_TS : "generate_client_ts()"
-	SET_CLIENT_ACK_TS --> [*] : "calculate_strength()"
-	SET_CLIENT_TS --> [*] : "reset()"
-	SET_SERVER_ACK_TS --> [*] : "reset()"
-	SET_CLIENT_ACK_TS --> [*] : "reset()"
+	[*] --> SET_SERVER_TS : ADD_SERVER_TS
+	SET_SERVER_TS --> SET_SERVER_ACK_TS : ADD_SERVER_ACK_TS
+	SET_SERVER_ACK_TS --> [*] : CALCULATE_STRENGTH
+	SET_SERVER_TS --> [*] : RESET
+	SET_SERVER_ACK_TS --> [*] : RESET
 ```
 
+The states are maintained to make sure the calucaltion progress in a proper way. 
+1. When an action `ADD_SERVER_TS` then the object changes to a state of `SET_SERVER_TS`.
+2. When an action `ADD_SERVER_ACK_TS` then the object changes from `SET_SERVER_TS` to `SET_SERVER_ACK_TS`
+3. When an action `CALCULATE_STRENGTH` it resets from `SET_SERVER_ACK_TS` to initial state.
+4. When an action `RESET` is called from `SET_SERVER_TS` and `SET_SERVER_ACK_TS` it resets to initial state.
+ 
+- When an action A
 ## Input
 ### server_ts (required) : string
 Timestamp when original message M was sent from the server
@@ -101,11 +105,11 @@ type refOptimalLatency = { optimal_val: int, offset: int }
 - The offset is the value by which different grades of strength can be maipulated. 
 
 The default calculates with optimal_value as 200ms and offset as 50 ms. Thus the grades of strength can be considered as
-- latency > X + 2(offset) = latency > 200 + (2 * 50) = 300 ms ; then Unstable
-- latency > X + offset = latency > 200 + 50 = 250 ms ; then Not Good
-- latency > X  = latency > 200  ; then Okay
-- latency > X - offset = latency > 200 - 50 = 150 ms ; then Very Good
-- else Excellent
+- latency > X + 2(offset) = latency > 200 + (2 * 50) = 300 ms ; then `Unstable`
+- latency > X + offset = latency > 200 + 50 = 250 ms ; then `Not Good`
+- latency > X  = latency > 200  ; then `Okay`
+- latency > X - offset = latency > 200 - 50 = 150 ms ; then `Very Good`
+- else `Excellent`
 
 ### WsStrengthState 
 ```
