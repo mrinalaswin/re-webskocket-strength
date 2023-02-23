@@ -107,3 +107,7 @@ Resets the value of the `WsStrengthProp`
 | Test case ID | Input | Expected Output |
 |--------------|-------|-----------------|
 |	AAA001 | The strength is calculated without recieving any of the `server_ts`, `client_ts`, `server_ack_ts` or `client_ack_ts` | The system should prompt saying the corresponding value need to be set |
+
+## Acknowledgements
+- https://www.securedgenetworks.com/blog/wifi-signal-strength
+- https://ankitbko.github.io/blog/2022/06/websocket-latency/#:~:text=If%20the%20original%20message%20is,2%20gives%20one%20way%20latency.
