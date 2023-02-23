@@ -3,31 +3,31 @@ It is required to calculate the strength of the websocket, such that it can be u
 
 ```mermaid
 sequenceDiagram
-	activate Client
 		Server ->> Client: {server_ts, data}
-		Client -->> Server: {server_ts, client_ts}
-	deactivate
 	activate Client
+		Client -->> Server: {server_ts, client_ts}
+	deactivate Client
 		Server ->> Client: {server_ts, client_ts, server_ack_ts}
-		Server ->> Server: {server_ts, client_ts, server_ack_ts, client_ack_ts}
-		Server ->> Server: Calculate Latency
-	deactivate
+		activate Client
+		Client ->> Client: {server_ts, client_ts, server_ack_ts, client_ack_ts}
+		Client ->> Client: Calculate Latency
+	deactivate Client
 ```
 
 ```mermaid
 flowchart TD
 	Start --> RST(Recieves server_timestamp)
-	RST --> SCT (Sends client_timestamp)
-	SCT --> RSAT (Recieves server_acknowledge_timestamp) 
-	RSAT --> GCAT (Generates client_acknowledge_timestamp)
-	GCAT --> CL ("Calcualte Latency L(M) (server_ack_ts - server_ts) - ((client_ack_ts - client_ts) * 0.5)"
-	CL --> GT90 {"if L(M) > 90"}
+	RST --> SCT(Sends client_timestamp)
+	SCT --> RSAT(Recieves server_acknowledge_timestamp) 
+	RSAT --> GCAT(Generates client_acknowledge_timestamp)
+	GCAT --> CL("Calcualte Latency L(M) (server_ack_ts - server_ts) - ((client_ack_ts - client_ts) * 0.5")
+	CL --> GT90{"if L(M) > 90"}
 	GT90 -->|yes| US("Strength = Unstable")
-	GT90 --> |no| GT80 {"if L(M) > 80"}
+	GT90 --> |no| GT80{"if L(M) > 80"}
 	GT80 --> |yes| NG("Strength = Not Good")
-	GT80 --> |no| GT70 {"if L(M) > 70"}
+	GT80 --> |no| GT70{"if L(M) > 70"}
 	GT70 --> |yes| OK("Strength = Okay")
-	GT70 --> |no| GT67 {"if L(M)> 67"}
+	GT70 --> |no| GT67{"if L(M)> 67"}
 	GT67 --> |yes| VG("Strength = Very Good")
 	GT67 --> |no| EX("Strength = Excellent")
 	US --> Stop
