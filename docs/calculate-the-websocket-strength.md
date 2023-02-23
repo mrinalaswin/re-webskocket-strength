@@ -72,7 +72,6 @@ The states are maintained to make sure the calucaltion progress in a proper way.
 3. When an action `CALCULATE_STRENGTH` it resets from `SET_SERVER_ACK_TS` to initial state.
 4. When an action `RESET` is called from `SET_SERVER_TS` and `SET_SERVER_ACK_TS` it resets to initial state.
  
-- When an action A
 ## Input
 ### server_ts (required) : string
 Timestamp when original message M was sent from the server
@@ -113,12 +112,12 @@ The default calculates with optimal_value as 200ms and offset as 50 ms. Thus the
 
 ### WsStrengthState 
 ```
-type WsStrengthState = SET_CLIENT_TS | SET_SERVER_TS | SET_SERVER_ACK_TS | SET_CLIENT_ACK_TS
+type WsStrengthState =  SET_SERVER_TS | SET_SERVER_ACK_TS
 ```
 ### WsStrengthAction 
 
 ```
-type WsStrengthAction = ADD_SERVER_TS | GENERATE_CLIENT_TS | ADD_SERVER_ACK_TS | GENERATE_CLIENT_ACK_TS | CALCULATE_STRENGTH | RESET
+type WsStrengthAction = ADD_SERVER_TS |  ADD_SERVER_ACK_TS | CALCULATE_STRENGTH | RESET
 ```
 
 ### WsStrengthValue
@@ -154,7 +153,7 @@ Resets the value of the `WsStrengthProp`
 | AAA002 | When setting a reference and calculating the strength with offset the value goes to negetive values | Should prompt an error stating that it is not set and that it should adhere to default values|
 | AAA003 | Setting a reference with a valid values | The strength should adhere to the reference values set |
 | AAA004 | If a reference value is not set | The strength should be calculated based on the default value |
-	| AAA005 | An invalid optimal value is provided when setting reference | It should prompt with an error and resets to default values|
+| AAA005 | An invalid optimal value is provided when setting reference | It should prompt with an error and resets to default values|
 | AAA0006 | An invalid offset value is provided when setting reference | It should prompt with an error and resets to default values | 
 | AAA007 | Strength is calculated with valid values | It should provide the strength properly | 
 | AAA008 | An invalid server and server acknowledge timestamp is set | It should prompt the client with an error | 
