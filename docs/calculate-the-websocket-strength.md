@@ -141,12 +141,8 @@ type WsStrengthProp = {
 Set a reference value to calculate the strength based on latency.
 ### setServerTs(serverTs: int) => WsStrengthProp
 Sets the server timestamp to the `WsStrengthProp`
-### generateClientTs() => WsStrengthProp
-Generates the client timestamp when the server responds with its timestamp.
 ### setServerAckTs(serverAckTs: int) => WsStrengthProp
 Add the server acknowledge timestamp to the WsStrengthProp
-### generateClientAckTs() => WsStrengthProp
-Generates the client timestamp when the server responds with its acknowledgement timestamp.
 ### calculateStrength(WsStrengthProp) => WsStrengthProp
 Calculate the Strength of the Websocket connection
 ### reset() => WsStrengthProp
@@ -155,10 +151,17 @@ Resets the value of the `WsStrengthProp`
 | Test case ID | Input | Expected Output |
 |--------------|-------|-----------------|
 |	AAA001 | The strength is calculated without recieving any of the `server_ts`, `client_ts`, `server_ack_ts` or `client_ack_ts` | The system should prompt saying the corresponding value need to be set |
-| AAA002 | When setting a refernce point and calculating with offset the value goes to negetive values | Should prompt an error stating that it is not set and that it should adhere to default values|
+| AAA002 | When setting a reference and calculating the strength with offset the value goes to negetive values | Should prompt an error stating that it is not set and that it should adhere to default values|
 | AAA003 | Setting a reference with a valid values | The strength should adhere to the reference values set |
 | AAA004 | If a reference value is not set | The strength should be calculated based on the default value |
-	| AAA005 | An invalid optimal
+	| AAA005 | An invalid optimal value is provided when setting reference | It should prompt with an error and resets to default values|
+| AAA0006 | An invalid offset value is provided when setting reference | It should prompt with an error and resets to default values | 
+| AAA007 | Strength is calculated with valid values | It should provide the strength properly | 
+| AAA008 | An invalid server and server acknowledge timestamp is set | It should prompt the client with an error | 
+| AAA009 | A reset is called once the server timestamp is set | It should reset to initial value|
+| AAA010 | A reset is called once the server acknowledge timestamp is set | It should reset to initial value |
+
 ## Acknowledgements
 - https://www.securedgenetworks.com/blog/wifi-signal-strength
 - https://ankitbko.github.io/blog/2022/06/websocket-latency/#:~:text=If%20the%20original%20message%20is,2%20gives%20one%20way%20latency.
+- https://www.pingplotter.com/wisdom/article/is-my-connection-good
