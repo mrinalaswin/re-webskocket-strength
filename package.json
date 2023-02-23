@@ -5,10 +5,7 @@
   "main": "index.js",
   "author": "Mrinal Aswin <mrinalaswin08@gmail.com>",
   "license": "MIT",
-	"scripts": {
-		"generate-mindmap": "markmap ./docs/MINDMAP.md"
-	},
-  "devDependencies": {
-    "markmap-cli": "^0.14.4"
-  }
+  "scripts": {
+  },
+  "devDependencies": {}
 }
